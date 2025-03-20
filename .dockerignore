@@ -1,0 +1,9 @@
+**
+
+!rspack
+!src
+!.postcssrc
+!*.swcrc
+!package.json
+!pnpm-lock.yaml
+!tsconfig.json
