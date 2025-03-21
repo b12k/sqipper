@@ -11,7 +11,7 @@
     "prepare": "husky",
     "prepare:env": "shx cp -u .env.example .env",
     "prepare:husky": "husky init",
-    "dev": "bun start --hot",
+    "dev": "bun run src --hot",
     "check": "run-p check:format check:types check:scripts",
     "check:format": "bun _prettier . -c",
     "check:types": "bun _tsc",
@@ -45,7 +45,8 @@
     "lodash": "4.17.21",
     "pino": "9.6.0",
     "pino-http": "10.4.0",
-    "pino-pretty": "13.0.0"
+    "pino-pretty": "13.0.0",
+    "sqip": "^1.0.0-alpha.51"
   },
   "devDependencies": {
     "@b12k/branch-name-lint": "1.1.0",
