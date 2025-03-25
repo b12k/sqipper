@@ -11,7 +11,7 @@
     "prepare": "husky",
     "prepare:env": "shx cp -u .env.example .env",
     "prepare:husky": "husky init",
-    "dev": "bun run src --hot",
+    "dev": "bun --hot run src",
     "check": "run-p check:format check:types check:scripts",
     "check:format": "bun _prettier . -c",
     "check:types": "bun _tsc",
@@ -23,7 +23,7 @@
     "deps:upgrade": "ncu -du --doctorInstall \"bun i\" --doctorTest \"bun deps:upgrade:doctor\"",
     "deps:upgrade:doctor": "run-p check:types check:styles check:scripts build",
     "clean": "shx rm -rf dist",
-    "build": "bun build --outdir=dist --minify src/index.ts",
+    "build": "bun build --outdir=dist --minify src/index.ts --target=bun",
     "start": "bun run dist",
     "start:docker": "env-cmd -sni docker run --env-file .env -p 3000:3000 -d {{DOCKER_IMAGE}}-amd64-latest",
     "docker:build": "env-cmd -sni bun _docker:buildx:build --cache-from={{DOCKER_IMAGE}}-amd64:latest -t={{DOCKER_IMAGE}}-amd64:latest -t={{DOCKER_IMAGE}}-amd64:{{VERSION}}",
@@ -46,7 +46,9 @@
     "pino": "9.6.0",
     "pino-http": "10.4.0",
     "pino-pretty": "13.0.0",
-    "sqip": "^1.0.0-alpha.51"
+    "sqip": "1.0.0-alpha.51",
+    "sqip-plugin-pixels": "1.0.0-alpha.53",
+    "zod": "3.24.2"
   },
   "devDependencies": {
     "@b12k/branch-name-lint": "1.1.0",
@@ -56,14 +58,11 @@
     "@eslint/js": "9.22.0",
     "@types/node": "22.13.10",
     "@typescript-eslint/parser": "8.26.1",
-    "chokidar": "4.0.3",
     "commitlint": "19.8.0",
-    "concurrently": "^9.1.2",
-    "crossenv": "^0.0.2-security",
     "eslint": "9.22.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-import-resolver-typescript": "4.1.1",
-    "eslint-plugin-file-progress": "^3.0.2",
+    "eslint-plugin-file-progress": "3.0.2",
     "eslint-plugin-import-x": "4.8.0",
     "eslint-plugin-perfectionist": "4.10.1",
     "eslint-plugin-prettier": "5.2.3",
@@ -72,7 +71,7 @@
     "husky": "9.1.7",
     "lint-staged": "15.5.0",
     "npm-check-updates": "17.1.15",
-    "npm-run-all2": "^7.0.2",
+    "npm-run-all2": "7.0.2",
     "prettier": "3.5.3",
     "shx": "0.4.0",
     "sort-package-json": "3.0.0",
@@ -82,5 +81,8 @@
   "packageManager": "bun@10.6.4",
   "engines": {
     "node": "22"
+  },
+  "resolutions": {
+    "sharp": "0.33.5"
   }
 }
