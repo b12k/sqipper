@@ -1,9 +1,10 @@
 import jsPlugin from '@eslint/js';
 import progressPlugin from 'eslint-plugin-file-progress';
-import importPlugin from 'eslint-plugin-import-x';
+import { flatConfigs as importPluginFlatConfigs } from 'eslint-plugin-import-x';
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import prettierPlugin from 'eslint-plugin-prettier/recommended';
 import unicornPlugin from 'eslint-plugin-unicorn';
+import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import {
   config as createTsConfig,
@@ -11,8 +12,8 @@ import {
 } from 'typescript-eslint';
 
 export default createTsConfig(
+  globalIgnores(['dist', 'node_modules']),
   {
-    ignores: ['dist', 'node_modules'],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -23,8 +24,8 @@ export default createTsConfig(
   jsPlugin.configs.recommended,
   ...tsConfigs.recommended,
   unicornPlugin.configs.all,
-  importPlugin.flatConfigs.recommended,
-  importPlugin.flatConfigs.typescript,
+  importPluginFlatConfigs.recommended,
+  importPluginFlatConfigs.typescript,
   perfectionistPlugin.configs['recommended-natural'],
   prettierPlugin,
   progressPlugin.configs.recommended,

@@ -1,4 +1,4 @@
-import { Elysia, t } from 'elysia';
+import { Elysia } from 'elysia';
 import path from 'node:path';
 import { sqip } from 'sqip';
 
@@ -6,7 +6,7 @@ import { env } from './env';
 import { printBanner } from './print-banner';
 
 new Elysia()
-  .get('/', async ({ body }) => {
+  .get('/', async () => {
     const sqipResult = await sqip({
       input: path.resolve(__dirname, './portrait.jpg'),
       plugins: [
