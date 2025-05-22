@@ -1,1 +1,1 @@
-bun husky:pre-commit
+bun test

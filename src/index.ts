@@ -1,31 +1,15 @@
 import { Elysia } from 'elysia';
-import path from 'node:path';
-import { sqip } from 'sqip';
 
-import { env } from './env';
-import { printBanner } from './print-banner';
+import { config } from './config';
+import { mainHandler } from './handlers';
+import { printBanner } from './utils';
 
 new Elysia()
-  .get('/', async () => {
-    const sqipResult = await sqip({
-      input: path.resolve(__dirname, './portrait.jpg'),
-      plugins: [
-        {
-          name: 'pixels',
-          options: {
-            width: 1,
-          },
-        },
-        // {
-        //   name: 'blur',
-        //   options: {
-        //     blur: 24,
-        //   },
-        // },
-        'svgo',
-        'data-uri',
-      ],
-    });
-    return sqipResult;
+  .get('/prefetch/*', (request) => {
+    mainHandler(request);
   })
-  .listen(env.PORT, () => printBanner(env.IS_PROD, env.PORT));
+  .get('/*', async (request) => {
+    return await mainHandler(request);
+  })
+  .get('/', () => '🍌')
+  .listen(config.PORT, () => printBanner(config.IS_PROD, config.PORT));
